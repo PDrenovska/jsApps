@@ -1,0 +1,60 @@
+html, body, ul {
+	margin: 0;
+	padding:0;
+}
+body {
+	background: #1e1e1e;
+	
+
+}
+#sites-bar {
+font-family: Arial, sans-serif;
+font-size: 12px;
+}
+#sites-bar ul {
+	list-style: none;
+	zoom: 1;
+	background: ;
+	background: #004962;
+	height: 40px;
+	color: #fff;
+	padding-left: 20px;
+}
+
+#sites-bar ul:after {
+	content: '';
+	clear: both;
+	display: block;
+}
+
+#sites-bar > ul > li {
+	float: left;
+	position: relative;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-transform: uppercase;
+	line-height: 40px;
+}
+#sites-bar > ul > li > ul {
+	position: absolute;
+	left: 0;
+	display: none;
+	height: auto;
+	padding-left: 20px;
+	padding-right: 10px;
+	width: 100px;
+	background: #136984;
+
+}
+#sites-bar > ul > li:hover {
+	background: #136984;
+}
+#sites-bar > ul > li:hover > ul {	
+	position: absolute;
+	left: 0;
+	display: block;
+
+}
+#sites-bar a {
+	color: #fff;
+}
