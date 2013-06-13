@@ -1,0 +1,30 @@
+<html>
+<head>
+	<title>By given an array of students, generate a table that represents these students</title>
+	<script type="text/javascript" src="jquery-2.0.2.min.js"></script>
+    <script type="text/javascript" src="oop.js"></script>
+    <style type="text/css">
+        .students {
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            border-collapse: collapse;
+        }
+        .students td, .students th {
+            border-bottom: 1px solid #000;
+            border-right: 1px solid #000;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+	<h1>By given an array of students, generate a table that represents these students</h1>
+    <h2>Each student has first name, last name and grade</h2>
+    <script type="text/javascript" src="students-table.js"></script>
+    <script>
+        var misho = new Student("Misho", "Mishovski", 1);
+        var pesho = new Student("Petar", "Petrov", 6);
+        var studentsTable = new StudentsTable([misho, pesho]);
+        studentsTable.render();
+    </script> 
+</body>
+</html>
