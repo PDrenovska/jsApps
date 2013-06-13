@@ -1,0 +1,36 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Arial, sans-serif;
+}
+
+#grid-view-holder {
+	margin-top: 40px;
+	margin-left: 50px;
+}
+#grid-view-holder table {
+	padding: 0;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+#grid-view-holder table th {
+	border: 1px solid #3f95c5;
+	padding: 5px 10px;
+	background: #3f95c5;
+	color: #fff;
+	text-align: left;
+}
+#grid-view-holder table td {
+	border: 1px solid #3f95c5;
+	padding: 5px 10px;
+	color: #004a73;
+}
+#grid-view-holder tr.parent {
+	cursor: pointer;
+}
+#grid-view-holder tr.parent td {
+	background: #cee4f0;
+}
