@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Tree view</title>
+    <link href="styles/main.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="scripts/jquery-2.0.2.min.js"></script>
+    <script type="text/javascript" src="scripts/tree-view.js"></script>
+    <script type="text/javascript">
+       $(document).ready(function() {
+            $('.menu').expandable().fadeOut(15000);
+      });
+ </script>
+</head>
+<body>
+    <ul class="menu">
+        <li><a href="#">Item</a></li>
+        <li><a href="#">Item</a></li>
+        <li>
+            Parent Menu
+            <ul>
+                <li><a href="#">Sub item</a></li>
+                <li><a href="#">Sub item</a></li>
+                <li><a href="#">Sub item</a></li>
+            </ul>
+        </li>
+        <li>
+            Parent Menu
+            <ul>
+                <li><a href="#">Accessify</a></li>
+                <li>
+                    SubMenu
+                    <ul>
+                        <li><a href="#">Sub item</a></li>
+                        <li><a href="#">Sub item</a></li>
+                        <li><a href="#">Sub item</a></li>
+                    </ul>
+                </li>
+                <li>
+                    One More Menu
+                    <ul>
+                        <li><a href="#">Link 1</a></li>
+                        <li>
+                            Sub Sub Menu
+                            <ul>
+                                <li><a href="#">Sub Sub item</a></li>
+                                <li><a href="#">Sub Sub item</a></li>
+                                <li><a href="#">Sub Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Link 2</a></li>
+                        <li><a href="#">Link 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿html, body, ul {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #fff;
+	font-family: Verdana, sans-serif;
+}
+/* MENU */
+.menu {
+	margin: 50px;
+	padding: 0px;
+	color: #fff;
+	width: 500px;
+    background: #666;
+}
+
+.menu li {
+	padding-left: 20px;
+	list-style-type: none;
+	text-align: left;
+	font-family: Verdana, sans-serif;
+	font-style: italic;
+	font-size: 12px;
+	font-weight: normal;
+    line-height: 28px;
+}
+
+/* SUBMENU */
+.menu li > ul {
+    display: none;
+}
+	
+.collapsed {
+	background: url('../images/collapsed.png');
+}
+.expanded {
+	background: url('../images/expanded.png');
+}
+.collapsed, .expanded {
+	background-repeat: no-repeat;
+	padding-left: 10px;
+	cursor: pointer;
+	background-position: left 5px;
+
+}
