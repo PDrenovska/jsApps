@@ -14,8 +14,6 @@ var controls = (function (){
 		
 		var itemsTable = $("<table/>");
 		if(gvItem) {
-			gvItem.on('click', listener);
-
 			function listener(ev){
 				if(!ev) {
 					ev = window.event;
@@ -25,9 +23,6 @@ var controls = (function (){
 				ev.preventDefault();
 
 				var clickedItem = ev.target;
-				if(!(clickedItem instanceof HTMLTableCellElement)) {
-					return;
-				}
 
 				var nextRow = $(clickedItem).parent().next();
 				if(!nextRow) {
@@ -40,6 +35,7 @@ var controls = (function (){
 				}
 				nextRow.fadeToggle("slow");
 			};
+			gvItem.on('click', "td", listener);
 		}
 
 		this.addRow = function() {
