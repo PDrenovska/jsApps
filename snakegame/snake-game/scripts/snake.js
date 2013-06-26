@@ -130,6 +130,7 @@ var snakeGame = (function() {
 
   var Snake = MovingGameObject.extend({
     init: function(position, speed, direction) {
+      this.eatenFoods = 0;
       var piece;
       var piecePosition;
       this._super(position, defaultSnakeSize, "", "", speed, direction);
@@ -170,7 +171,9 @@ var snakeGame = (function() {
     },
     consume: function(obj) {
       if (obj instanceof Food) {
+
         this.grow();
+        
       } else if (obj instanceof Obstacle) {
         this.die();
       } else if (obj instanceof SnakePiece) {
@@ -221,6 +224,8 @@ var snakeGame = (function() {
       this.drawingContext = context;
       this.maxX = maxX;
       this.maxY = maxY;
+
+      this.gameSpeed = 300;
 
       this.initGameObjects();
       this.attachHandlers();
@@ -294,6 +299,12 @@ var snakeGame = (function() {
       };
       gameObject.changePosition(position);
     },
+    updateGameSpeed: function() {
+      this.gameSpeed -= 100;
+      clearInterval(this.snakeTimer);
+      this.setGameInterval(this); // set interval with new speed
+      console.log(this.gameSpeed); // for testing
+    },
     checkCollisions: function() {
       this.passThroughBorders();
       var numObjects = this.gameObjects.length;
@@ -303,10 +314,24 @@ var snakeGame = (function() {
         if (colliding) {
           this.snake.consume(gameObject);
           if(gameObject instanceof Food) {
+            this.snake.eatenFoods++;
+            if(this.snake.eatenFoods == 5) {
+              this.updateGameSpeed();
+            }
             this.createRandomFood(gameObject);
           }
         }
       }
+      
+    },
+    setGameInterval: function(self) {
+      this.snakeTimer = setInterval(function() {
+        self.drawingContext.clearRect(0, 0, self.drawingContext.canvas.width, self.drawingContext.canvas.height)
+        self.snake.move();
+        self.checkCollisions();
+        self.snake.checkSelfEating();
+        self.redraw();
+      }, this.gameSpeed); // gameSpeed will help to increase the speed
     },
     start: function() {
       var self = this;
@@ -317,13 +342,7 @@ var snakeGame = (function() {
         this.attachDieHandler();
         clearInterval(this.snakeTimer);
       }
-      this.snakeTimer = setInterval(function() {
-        self.drawingContext.clearRect(0, 0, self.drawingContext.canvas.width, self.drawingContext.canvas.height)
-        self.snake.move();
-        self.checkCollisions();
-        self.snake.checkSelfEating();
-        self.redraw();
-      }, 300);
+      this.setGameInterval(self);
       console.log("Start Timer: " + this.snakeTimer);
     }
   });

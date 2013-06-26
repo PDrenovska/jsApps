@@ -58,6 +58,19 @@
     equal(actual, expected);
   });
 
+  test("When snake eats five food objects, should increase the speed", function() {
+    var iniSpeed = game.gameSpeed;
+    game.snake.consume(new snakeGame.Food());
+    game.snake.consume(new snakeGame.Food());
+    game.snake.consume(new snakeGame.Food());
+    game.snake.consume(new snakeGame.Food());
+    game.snake.consume(new snakeGame.Food());
+    game.updateGameSpeed();
+    var actual = game.gameSpeed;
+    var expected = iniSpeed - 100;
+    equal(actual, expected);
+});
+
   // Clear previously registered callbacks
   QUnit.testStart(function() {});
 }());
