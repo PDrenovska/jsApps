@@ -174,7 +174,6 @@ var snakeGame = (function() {
       } else if (obj instanceof Obstacle) {
         this.die();
       } else if (obj instanceof SnakePiece) {
-        console.log("I eat myself!!");
         this.die();
       }
     },
@@ -273,38 +272,39 @@ var snakeGame = (function() {
         this.gameObjects[i].draw(this.drawingContext);
       }
     },
-    checkCollisions: function() {
+    passThroughBorders: function() {
       var i;
-      
       for(i = 0; i < this.snake.size; i+=1) {
         var piece = this.snake.pieces[i];
-        if (piece.position.x < 0 || piece.position.x + piece.size > this.maxX || piece.position.y < 0 || piece.position.y + piece.size > this.maxY) {
+        var outOfx = piece.position.x < 0 || piece.position.x + piece.size > this.maxX;
+        var outOfy = piece.position.y < 0 || piece.position.y + piece.size > this.maxY;
+        if (outOfx) {
           piece.position.x += this.maxX;
           piece.position.x %= this.maxX;
-
+        } else if(outOfy) {
           piece.position.y += this.maxY;
           piece.position.y %= this.maxY;
         }
       }
-
-      for (var i = 0; i < this.gameObjects.length; i += 1) {
+    },
+    createRandomFood: function(gameObject) {
+      var position = {
+        x: (Math.random() * this.maxX) | 0,
+        y: (Math.random() * this.maxY) | 0
+      };
+      gameObject.changePosition(position);
+    },
+    checkCollisions: function() {
+      this.passThroughBorders();
+      var numObjects = this.gameObjects.length;
+      for (var i = 0; i < numObjects; i += 1) {
         var gameObject = this.gameObjects[i];
-        if (!(gameObject instanceof Snake)) {
-
-          var colliding = this.snake.intersects(gameObject);
-          if (colliding) {
-            this.snake.consume(gameObject);
+        var colliding = this.snake.intersects(gameObject);
+        if (colliding) {
+          this.snake.consume(gameObject);
+          if(gameObject instanceof Food) {
+            this.createRandomFood(gameObject);
           }
-          if (colliding && (gameObject instanceof Food)) {
-
-            var position = {
-              x: (Math.random() * this.maxX) | 0,
-              y: (Math.random() * this.maxY) | 0
-            };
-            gameObject.changePosition(position);
-          }
-        } else {
-
         }
       }
     },
