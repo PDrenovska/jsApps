@@ -60,14 +60,19 @@
 
   test("When snake eats five food objects, should increase the speed", function() {
     var iniSpeed = game.gameSpeed;
-    game.snake.consume(new snakeGame.Food());
-    game.snake.consume(new snakeGame.Food());
-    game.snake.consume(new snakeGame.Food());
-    game.snake.consume(new snakeGame.Food());
-    game.snake.consume(new snakeGame.Food());
+    game.snake.eatenFoods = 5;
     game.updateGameSpeed();
     var actual = game.gameSpeed;
     var expected = iniSpeed - 100;
+    equal(actual, expected);
+});
+
+  test("When snake eats four food objects, should not increase the speed", function() {
+    var iniSpeed = game.gameSpeed;
+    game.snake.eatenFoods = 4;
+    game.updateGameSpeed();
+    var actual = game.gameSpeed;
+    var expected = iniSpeed;
     equal(actual, expected);
 });
 

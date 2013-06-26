@@ -300,10 +300,12 @@ var snakeGame = (function() {
       gameObject.changePosition(position);
     },
     updateGameSpeed: function() {
-      this.gameSpeed -= 100;
-      clearInterval(this.snakeTimer);
-      this.setGameInterval(this); // set interval with new speed
-      console.log(this.gameSpeed); // for testing
+      if(this.snake.eatenFoods == 5) {
+        this.gameSpeed -= 100;
+        clearInterval(this.snakeTimer);
+        this.setGameInterval(this); // set interval with new speed
+        console.log(this.gameSpeed); // for testing
+      }
     },
     checkCollisions: function() {
       this.passThroughBorders();
@@ -315,9 +317,7 @@ var snakeGame = (function() {
           this.snake.consume(gameObject);
           if(gameObject instanceof Food) {
             this.snake.eatenFoods++;
-            if(this.snake.eatenFoods == 5) {
-              this.updateGameSpeed();
-            }
+            this.updateGameSpeed();
             this.createRandomFood(gameObject);
           }
         }
