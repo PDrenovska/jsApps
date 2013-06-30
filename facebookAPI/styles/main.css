@@ -1,0 +1,59 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: url('../images/wood-background.jpg');
+}
+h1, h2 {
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-shadow: 2px 2px 5px #000;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 5px;
+}
+small {
+    font-size: .6em;
+    font-style: italic;
+    font-weight: normal;
+}
+#main-wrapper {
+    width: 800px;
+    margin: 20px auto 0 auto;
+    position: relative;
+}
+#friends {
+    height: 400px;
+    overflow: auto;
+}
+.friend-picture {
+    width: 75px;
+    height: 75px;
+    margin: 3px;
+    border: 2px solid #ccc;
+}
+
+.friend-zoom-picture {
+    display: none;
+    position: absolute;
+    top: 200px;
+}
+.login, .logout {
+    width: 150px;
+    height: 27px;
+    background-repeat: no-repeat;
+    float: right;
+    border: none;
+}
+.login {
+    background: url('../images/login.png');
+}
+.logout {
+    background: url('../images/logout.png');
+}
+
+#user-info img {
+    border: 2px solid #fff;
+}

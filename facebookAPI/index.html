@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html> 
+<html xmlns:fb="https://www.facebook.com/2008/fbml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Application using Facebook API</title>
+        <link href="styles/main.css" rel="stylesheet" />
+        <script src="scripts/jquery-2.0.2.js"></script>
+        <script src="scripts/zoom.js"></script>
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <script>
+            //localhost:20511/index.html
+            var button;
+            var userInfo;
+
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '210497889102001', //change the appId to your appId
+                    status: true,
+                    cookie: true,
+                    xfbml: true,
+                    oauth: true
+                });
+
+                function updateButton(response) {
+                    button = $('#fb-auth');
+                    userInfo = $('#user-info');
+
+                    if (response.authResponse) {
+                        //user is already logged in and connected
+                        FB.api('/me', function (info) {
+                            login(response, info);
+                        });
+
+                        button.on("click", function () {
+                            FB.logout(function (response) {
+                                logout(response);
+                            });
+                        });
+                    } else {
+                        //user is not connected to your app or logged out
+                        button.attr("class", "login");
+                        button.on("click", function() {
+                            FB.login(function(response) {
+                                if (response.authResponse) {
+                                    FB.api('/me', function(info) {
+                                        login(response, info);
+                                    });
+                                } else {
+                                    //user cancelled login or did not grant authorization
+                                }
+                            }, { scope: 'read_friendlists, user_photos, user_birthday, user_location' });
+                        });
+                    }
+                }
+
+                // run once with current status and whenever the status changes
+                FB.getLoginStatus(updateButton);
+                FB.Event.subscribe('auth.statusChange', updateButton);
+            };
+            (function () {
+                var e = document.createElement('script'); e.async = true;
+                e.src = document.location.protocol
+                    + '//connect.facebook.net/en_US/all.js';
+                document.getElementById('fb-root').appendChild(e);
+            }());
+
+            function login(response, info) {
+                if (response.authResponse) {
+                    var accessToken = response.authResponse.accessToken;
+                    getFriends(accessToken);
+                    userInfo.html(
+                        '<img src="https://graph.facebook.com/' + info.id + '/picture">' +
+                            "<h2>" + info.name + ", <small>" + info.birthday + ", " + info.locale + "</small></h2>");
+                    button.attr("class", "logout");
+                }
+            }
+
+            function logout(response) {
+                userInfo.html("");
+                $('#friends').html("");
+            }
+            
+            function getFriends(accessToken) {
+                FB.api('/me/friends?access_token=' + accessToken, function (response) {
+                    var friendsHolder = $('#friends');
+                    for (var i = 0; i < response.data.length; i++) {
+                        var friendPictureUrl = 'https://graph.facebook.com/' + response.data[i].id + '/picture?width=400&height=400';
+                        var friendName = response.data[i].name;
+                        var photo = $("<img/>");
+                        photo.attr("class", "friend-picture");
+                        photo.attr("src", friendPictureUrl);
+                        photo.attr("title", friendName);
+                        friendsHolder.append(photo);
+                        var zoomPhoto = $("<img/>");
+                        zoomPhoto.attr("class", "friend-zoom-picture");
+                        zoomPhoto.attr("src", friendPictureUrl);
+                        zoomPhoto.attr("title", friendName);
+                        friendsHolder.append(zoomPhoto);
+                        $(photo).zoom();
+                        $(zoomPhoto).collapse();
+                    }
+                });
+            }
+        </script>
+        <div id="main-wrapper">
+            <h1>Application using Facebook API</h1>
+            <button id="fb-auth"></button>
+            <br />
+            <div id="user-info"></div>
+            <div id="friends"></div>
+        </div> 
+    </body>
+</html>
