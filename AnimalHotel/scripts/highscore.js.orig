@@ -1,0 +1,18 @@
+﻿var highScore = 0;
+
+setInterval(function () {
+			
+	var moodSum = 0;
+	var healthSum = 0;
+	var hungerSum = 0;
+	
+	for(var i = 0; i < sanMarino.rooms.length; i++){
+		if (sanMarino.rooms[i].roomer)
+		{
+			hungerSum+=sanMarino.rooms[i].roomer._super.hunger / 10;
+			moodSum+=sanMarino.rooms[i].roomer.mood;
+			healthSum+=sanMarino.rooms[i].roomer._super.health / 10;
+			highScore+=hungerSum+moodSum+healthSum;
+		}
+	}
+}, 1000);
